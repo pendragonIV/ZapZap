@@ -16,6 +16,7 @@ public class Arrow : MonoBehaviour
             float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -24,12 +25,16 @@ public class Arrow : MonoBehaviour
         {
             StopArrow();
             StartCoroutine(DeactiveArrow(this.gameObject));
+
+            GameManager.instance.DecreseArrows();
         }
         else if (collision.gameObject.CompareTag("Enemy"))
         {
             collision.GetComponent<Enemy>().KnockBack(rb.velocity.x);
             StopArrow();
             this.transform.parent = collision.gameObject.transform;
+
+            GameManager.instance.DecreseArrows();
         }
 
     }

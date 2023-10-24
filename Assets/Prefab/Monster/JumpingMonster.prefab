@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 8700709544296833394}
-  collider: {fileID: 8700709544296833393}
+  enemyCollider: {fileID: 8700709544296833393}
+  animator: {fileID: 0}
   isHit: 0
   enemyType: 0
   defaultPos: {x: 0, y: 0}

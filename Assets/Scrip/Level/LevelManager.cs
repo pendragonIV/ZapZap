@@ -6,6 +6,8 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
 
+    public LevelData levelData;
+
     private void Awake()
     {
         if(instance != this && instance != null)
@@ -16,8 +18,14 @@ public class LevelManager : MonoBehaviour
         {
             instance = this;
         }
+
+        levelData.LoadDataJSON();
     }
 
-    public LevelData levelData;
     public int currentLevelIndex;
+
+    private void OnApplicationQuit()
+    {
+        levelData.SaveDataJSON();
+    }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -30,7 +31,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Vector2 currentVelocity;
     [SerializeField]
-    private float movingSpeed = 3f;
+    private float movingSpeed = 2.5f;
+    private bool isAiming = false;
 
     private void Start()
     {
@@ -41,48 +43,63 @@ public class Player : MonoBehaviour
     void Update()
     {
 
-        if(Input.GetMouseButtonDown(0))
+        if (!GameManager.instance.IsGamePause() && EventSystem.current.currentSelectedGameObject == null && GameManager.instance.GetArrows() > 0)
         {
-            trajectory.Show();
-            UpdateArrowDirection();
-            UpdateAcheryRotation();
-            trajectory.UpdateDots(achery.transform.position, direction * 1.5f);
-            SetUpNewArrow();
+            if (Input.GetMouseButtonDown(0))
+            {
+                trajectory.Show();
+                UpdateArrowDirection();
+                UpdateAcheryRotation();
+                trajectory.UpdateDots(achery.transform.position, direction * 1.5f);
+                FlipX(mousePosition);
+                SetUpNewArrow();
+                isAiming = true;
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                UpdateArrowDirection();
+                UpdateAcheryRotation();
+                trajectory.UpdateDots(achery.transform.position, direction * 1.5f);
+                FlipX(mousePosition);
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                trajectory.Hide();
+                ArrowShoot();
+                isAiming = false;
+            }
         }
-        else if (Input.GetMouseButton(0))
-        {
-            UpdateArrowDirection();
-            UpdateAcheryRotation();
-            trajectory.UpdateDots(achery.transform.position, direction * 1.5f);
-        }else if(Input.GetMouseButtonUp(0))
+        else
         {
             trajectory.Hide();
-            ArrowShoot();
         }
 
-        FlipX(mousePosition);
+        FlipPlayer();
 
         currentVelocity = rb.velocity;
     }
 
     private void FixedUpdate()
     {
-        if(LevelManager.instance.levelData.GetLevelAt(LevelManager.instance.currentLevelIndex).leftPosX > transform.position.x)
+        if (!GameManager.instance.IsGamePause())
         {
-            ChangeVelocityX(movingSpeed);
-        }
-
-        if (GameManager.instance.rightEnemies.Count <= 0)
-        {
-            if (LevelManager.instance.levelData.GetLevelAt(LevelManager.instance.currentLevelIndex).rightPosX > transform.position.x)
+            if (LevelManager.instance.levelData.GetLevelAt(LevelManager.instance.currentLevelIndex).leftPosX > transform.position.x)
             {
                 ChangeVelocityX(movingSpeed);
             }
-        }
 
-        if(GameManager.instance.leftEnemies.Count <= 0 && GameManager.instance.rightEnemies.Count <= 0)
-        {
-            ChangeVelocityX(movingSpeed);
+            if (GameManager.instance.rightEnemies.Count <= 0)
+            {
+                if (LevelManager.instance.levelData.GetLevelAt(LevelManager.instance.currentLevelIndex).rightPosX > transform.position.x)
+                {
+                    ChangeVelocityX(movingSpeed);
+                }
+            }
+
+            if (GameManager.instance.leftEnemies.Count <= 0 && GameManager.instance.rightEnemies.Count <= 0)
+            {
+                ChangeVelocityX(movingSpeed);
+            }
         }
     }
 
@@ -90,7 +107,25 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("CompleteLevelTrigger"))
         {
-            Debug.Log("Complete Level");    
+            GameManager.instance.CompleteLevel();
+        }
+    }
+
+    private void FlipPlayer()
+    {
+        if (!isAiming)
+        {
+            if (GameManager.instance.rightEnemies.Count <= 0)
+            {
+                if (GameManager.instance.leftEnemies.Count > 0)
+                {
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+            }
         }
     }
 
@@ -114,7 +149,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void FlipX(Vector2 mousePos)
+    public void FlipX(Vector2 mousePos)
     {
         if(mousePos.x > transform.position.x)
         {

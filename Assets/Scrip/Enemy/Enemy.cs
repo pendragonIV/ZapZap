@@ -14,8 +14,10 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rb;
     [SerializeField]
-    private Collider2D collider;
-    [SerializeField] 
+    private Collider2D enemyCollider;
+    [SerializeField]
+    private Animator animator;
+
     public bool isHit;
     [SerializeField]
     private EnemyType enemyType;
@@ -26,13 +28,16 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private bool isDead;
     [SerializeField]
-    private float movingSpeed = 1.5f;
+    private float movingSpeed;
 
     private void Start()
     {
         rb = this.gameObject.GetComponent<Rigidbody2D>();
+        animator = this.gameObject.GetComponent<Animator>();
         defaultPos = transform.position;
         isDead = false;
+
+        movingSpeed = Random.Range(1f, 2f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -41,6 +46,10 @@ public class Enemy : MonoBehaviour
         {
             isHit = true;
             isDead = true;
+            if (animator)
+            {
+                animator.enabled = false;
+            }
 
             if(GameManager.instance.leftEnemies.Contains(this.gameObject))
             {
@@ -57,13 +66,19 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Base"))
         {
-            canJump = true; 
+            StartCoroutine(WaitToJump());    
             if(isDead)
             {
-                collider.enabled = false;
+                enemyCollider.enabled = false;
                 rb.simulated = false;
             }
         }
+    }
+
+    IEnumerator WaitToJump()
+    {
+        yield return new WaitForSeconds(Random.Range(.1f, 1f));
+        canJump = true;
     }
 
     private void FixedUpdate()

@@ -166,7 +166,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 973594519486254729}
-  collider: {fileID: 973594519486254728}
+  enemyCollider: {fileID: 973594519486254728}
+  animator: {fileID: 0}
   isHit: 0
   enemyType: 0
   defaultPos: {x: 0, y: 0}

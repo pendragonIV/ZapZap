@@ -14,8 +14,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - map: {fileID: 511808730970633560, guid: 04c1f945d63989045bdb6ea20ec57637, type: 3}
+    mapPreviewImg: {fileID: 21300000, guid: 28cd6a7b0147d70449660ace516c357e, type: 3}
     leftPosX: -6
     rightPosX: 5
+    isCompleted: 0
+    isPlayable: 1
+    achivement: 0
+  - map: {fileID: 8005299077676890250, guid: 4ad4ad53715ae6148bdbe7665f6d58ed, type: 3}
+    mapPreviewImg: {fileID: 21300000, guid: 28cd6a7b0147d70449660ace516c357e, type: 3}
+    leftPosX: -6
+    rightPosX: 4
+    isCompleted: 0
+    isPlayable: 0
+    achivement: 0
+  - map: {fileID: 7705358696633433517, guid: cad1eaec1ac00f7498f88ec80a389672, type: 3}
+    mapPreviewImg: {fileID: 21300000, guid: d6ac22333046f594a8a9af813997561e, type: 3}
+    leftPosX: -6
+    rightPosX: 4
+    isCompleted: 0
+    isPlayable: 0
+    achivement: 0
+  - map: {fileID: 6019933297651323043, guid: 84bccef33770bc440a9d6b04046ec8f6, type: 3}
+    mapPreviewImg: {fileID: 21300000, guid: d6ac22333046f594a8a9af813997561e, type: 3}
+    leftPosX: -6
+    rightPosX: 5
+    isCompleted: 0
+    isPlayable: 0
+    achivement: 0
+  - map: {fileID: 3705183896778767388, guid: d4846f13cd4722846b644888a0518d2e, type: 3}
+    mapPreviewImg: {fileID: 21300000, guid: fbb4cad8139d9a44eb4d1681bbb5f96c, type: 3}
+    leftPosX: -4
+    rightPosX: 3.5
+    isCompleted: 0
+    isPlayable: 1
+    achivement: 0
+  - map: {fileID: 332838673214688052, guid: b447679aeedfd204a99ffebcb0a81ccc, type: 3}
+    mapPreviewImg: {fileID: 21300000, guid: fbb4cad8139d9a44eb4d1681bbb5f96c, type: 3}
+    leftPosX: -4
+    rightPosX: 3.5
     isCompleted: 0
     isPlayable: 0
     achivement: 0
