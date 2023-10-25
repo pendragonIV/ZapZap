@@ -44,7 +44,7 @@ public class Arrow : MonoBehaviour
             if(this.gameObject == GameManager.instance.GetLastArrow())
             {
                 GameManager.instance.Lose();
-            }
+            } 
         }
         else if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -53,7 +53,14 @@ public class Arrow : MonoBehaviour
             this.transform.parent = collision.gameObject.transform;
             if (this.gameObject == GameManager.instance.GetLastArrow())
             {
-                GameManager.instance.Win();
+                if(GameManager.instance.leftEnemies.Count + GameManager.instance.rightEnemies.Count == 0)
+                {
+                    GameManager.instance.Win();
+                }
+                else
+                {
+                    GameManager.instance.Lose();
+                }
             }
         }
 

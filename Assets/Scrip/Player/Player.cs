@@ -153,9 +153,13 @@ public class Player : MonoBehaviour
     {
         if (!isAiming)
         {
-            if (GameManager.instance.rightEnemies.Count <= 0)
+            if (transform.position.x < LevelManager.instance.levelData.GetLevelAt(LevelManager.instance.currentLevelIndex).rightPosX)
             {
-                if (GameManager.instance.leftEnemies.Count > 0)
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else
+            {
+                if(GameManager.instance.leftEnemies.Count > 0)
                 {
                     transform.localScale = new Vector3(-1, 1, 1);
                 }
@@ -184,6 +188,7 @@ public class Player : MonoBehaviour
             currentArrow.transform.localScale = new Vector3(1, 1, 1);
             arrowRb.isKinematic = false;
             arrowRb.AddForce(direction * 1.5f, ForceMode2D.Impulse);
+            currentArrow.GetComponent<BoxCollider2D>().enabled = true;
 
             if(GameManager.instance.GetArrows() == 1)
             {
@@ -238,6 +243,7 @@ public class Player : MonoBehaviour
             currentArrow.transform.localScale = new Vector3(1, 1, 1);
             currentArrow.GetComponent<Rigidbody2D>().simulated = true;
             currentArrow.GetComponent<Rigidbody2D>().isKinematic = true;
+            currentArrow.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }
