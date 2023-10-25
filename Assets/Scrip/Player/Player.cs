@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
                 trajectory.Show();
                 UpdateArrowDirection();
                 UpdateAcheryRotation();
-                trajectory.UpdateDots(achery.transform.position, direction * 1.5f);
+                trajectory.UpdateDots(achery.transform.position, direction * 2f);
                 FlipX(mousePosition);
                 SetUpNewArrow();
                 AimAchery();
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
             {
                 UpdateArrowDirection();
                 UpdateAcheryRotation();
-                trajectory.UpdateDots(achery.transform.position, direction * 1.5f);
+                trajectory.UpdateDots(achery.transform.position, direction * 2f);
                 FlipX(mousePosition);
             }
             else if (Input.GetMouseButtonUp(0))
@@ -187,7 +187,7 @@ public class Player : MonoBehaviour
             currentArrow.transform.parent = null;
             currentArrow.transform.localScale = new Vector3(1, 1, 1);
             arrowRb.isKinematic = false;
-            arrowRb.AddForce(direction * 1.5f, ForceMode2D.Impulse);
+            arrowRb.AddForce(direction * 2f, ForceMode2D.Impulse);
             currentArrow.GetComponent<BoxCollider2D>().enabled = true;
 
             if(GameManager.instance.GetArrows() == 1)
