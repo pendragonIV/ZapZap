@@ -5,6 +5,7 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private bool isOutOfRange = false;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -17,6 +18,20 @@ public class Arrow : MonoBehaviour
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
 
+        if(transform.position.x > 10f || transform.position.x < -10f)
+        {
+            isOutOfRange = true;
+            if (isOutOfRange)
+            {
+                StartCoroutine(DeactiveArrow(this.gameObject));
+                isOutOfRange = false;
+            }
+
+            if(this.gameObject == GameManager.instance.GetLastArrow())
+            {
+                GameManager.instance.Lose();
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -26,18 +41,25 @@ public class Arrow : MonoBehaviour
             StopArrow();
             StartCoroutine(DeactiveArrow(this.gameObject));
 
-            GameManager.instance.DecreseArrows();
+            if(this.gameObject == GameManager.instance.GetLastArrow())
+            {
+                GameManager.instance.Lose();
+            }
         }
         else if (collision.gameObject.CompareTag("Enemy"))
         {
             collision.GetComponent<Enemy>().KnockBack(rb.velocity.x);
             StopArrow();
             this.transform.parent = collision.gameObject.transform;
-
-            GameManager.instance.DecreseArrows();
+            if (this.gameObject == GameManager.instance.GetLastArrow())
+            {
+                GameManager.instance.Win();
+            }
         }
 
     }
+
+
 
     private void StopArrow()
     {

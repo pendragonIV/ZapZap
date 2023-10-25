@@ -34,6 +34,15 @@ public class Player : MonoBehaviour
     private float movingSpeed = 2.5f;
     private bool isAiming = false;
 
+    private const string IDLE = "Player";
+    private const string WALK = "PlayerWalk";
+    [SerializeField]
+    private Sprite aimingAchery;
+    [SerializeField]
+    private Sprite idleAchery;
+    [SerializeField]
+    private GameObject hand;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -53,6 +62,7 @@ public class Player : MonoBehaviour
                 trajectory.UpdateDots(achery.transform.position, direction * 1.5f);
                 FlipX(mousePosition);
                 SetUpNewArrow();
+                AimAchery();
                 isAiming = true;
             }
             else if (Input.GetMouseButton(0))
@@ -67,6 +77,7 @@ public class Player : MonoBehaviour
                 trajectory.Hide();
                 ArrowShoot();
                 isAiming = false;
+                NormalAchery();
             }
         }
         else
@@ -77,6 +88,15 @@ public class Player : MonoBehaviour
         FlipPlayer();
 
         currentVelocity = rb.velocity;
+
+        if(currentVelocity.x > 0.1f)
+        {
+            GetComponent<Animator>().Play(WALK);
+        }
+        else
+        {
+            GetComponent<Animator>().Play(IDLE);
+        }
     }
 
     private void FixedUpdate()
@@ -109,6 +129,24 @@ public class Player : MonoBehaviour
         {
             GameManager.instance.CompleteLevel();
         }
+    }
+
+    private void AimAchery()
+    {
+        achery.GetComponent<SpriteRenderer>().sprite = aimingAchery;
+
+        hand.transform.localPosition = new Vector3(0, -0.1f, 0);
+        hand.transform.localRotation = Quaternion.Euler(0, 0, 90);
+
+    }
+
+    private void NormalAchery()
+    {
+        achery.GetComponent<SpriteRenderer>().sprite = idleAchery;
+        hand.transform.parent = this.transform;
+        hand.transform.localPosition = new Vector3(-0.2f, -0.18f, 0);
+        hand.transform.localRotation = Quaternion.Euler(0, 0, -45);
+
     }
 
     private void FlipPlayer()
@@ -146,6 +184,12 @@ public class Player : MonoBehaviour
             currentArrow.transform.localScale = new Vector3(1, 1, 1);
             arrowRb.isKinematic = false;
             arrowRb.AddForce(direction * 1.5f, ForceMode2D.Impulse);
+
+            if(GameManager.instance.GetArrows() == 1)
+            {
+                GameManager.instance.SetLastArrow(currentArrow);
+            }
+            GameManager.instance.DecreseArrows();
         }
     }
 

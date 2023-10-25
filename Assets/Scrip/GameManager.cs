@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     private bool isGameEnded = false;
     [SerializeField]
     private bool isGamePaused = false;
+    [SerializeField]
+    private GameObject lastArrow;
     private int arrows;
 
     private void Start()
@@ -54,19 +56,26 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(arrows <= 0 && !isGameEnded)
-        {
-            Lose();
-        }
+
 
         if (leftEnemies.Count <= 0 && rightEnemies.Count <= 0)
         {
-            if (isGameEnded)
+            if (!isGameEnded)
             {
                 Win();
             }
         }
 
+    }
+
+    public void SetLastArrow(GameObject arrow)
+    {
+        lastArrow = arrow;
+    }
+
+    public GameObject GetLastArrow()
+    {
+        return lastArrow;
     }
 
     public void PauseGame()
@@ -105,11 +114,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Lose()
+    public void Lose()
     {
         gameScene.ShowLosePanel();
         isGameEnded = true;
-        Time.timeScale = 0;
     }
     
     public void CompleteLevel()
@@ -117,13 +125,13 @@ public class GameManager : MonoBehaviour
         isGameEnded = true;
     }
 
-    private void Win()
+    public void Win()
     {
         gameScene.ShowWinPanel();
         SetCompleteLevel();
         SetUpNextLevel();
         LevelManager.instance.levelData.SaveDataJSON();
-        Time.timeScale = 0;
+        isGameEnded = true;
     }
 
     private void SetUpNextLevel()

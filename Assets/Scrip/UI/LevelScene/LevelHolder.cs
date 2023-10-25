@@ -19,8 +19,8 @@ public class LevelHolder : MonoBehaviour
     private IEnumerator ChangeScene(string sceneName)
     {
         //Optional: Add animation here
-
-        yield return new WaitForSecondsRealtime(.4f);
+        LevelsScene.instance.sceneTransition.GetComponent<Animator>().Play("SceneTransitionReverse");
+        yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadScene(sceneName);
     }
 }

@@ -6,15 +6,32 @@ using UnityEngine.UI;
 
 public class LevelsScene : MonoBehaviour
 {
+    public static LevelsScene instance; 
+
     [SerializeField]
     private Transform levelHolderPrefab;
     [SerializeField]
     private Transform levelsContainer;
+    public Transform sceneTransition;
     
-    private const int MAX_STARS = 3;    
+    private const int MAX_STARS = 3;
+
+    private void Awake()
+    {
+        if(instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
     void Start()
     {
-        PrepareLevels();    
+        PrepareLevels();
+        sceneTransition.GetComponent<Animator>().Play("SceneTransition");
     }
 
     private void PrepareLevels()

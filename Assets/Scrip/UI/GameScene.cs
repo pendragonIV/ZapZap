@@ -18,6 +18,8 @@ public class GameScene : MonoBehaviour
     private Transform winPanel;
     [SerializeField]
     private Transform losePanel;
+    [SerializeField]
+    private Transform sceneTransition;
 
     [SerializeField]
     private Text arrowLeft;
@@ -111,6 +113,7 @@ public class GameScene : MonoBehaviour
             ShowIngameMenu();
             ShowAchivementContainer();
             winPanel.gameObject.SetActive(true);
+            FadeIn(ingameMenu.GetComponent<CanvasGroup>(), winPanel.GetComponent<RectTransform>());
         }
     }
 
@@ -131,6 +134,7 @@ public class GameScene : MonoBehaviour
             ShowIngameMenu();
             ShowAchivementContainer();
             losePanel.gameObject.SetActive(true);
+            FadeIn(ingameMenu.GetComponent<CanvasGroup>(), losePanel.GetComponent<RectTransform>());
         }
     }
 

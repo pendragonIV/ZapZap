@@ -212,6 +212,11 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!4 &219420918 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7235857808991358150, guid: 18326888a338a9246a7b0b2ebf7412c5, type: 3}
+  m_PrefabInstance: {fileID: 2126940395}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &225800993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1211,6 +1216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db363ea50c81f1458592087989d938a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneTransition: {fileID: 219420918}
 --- !u!1001 &2126940395
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,6 +10,14 @@ public class SceneChanger : MonoBehaviour
     private const string GAME = "GameScene";
     private const string LEVEL_CHOOSE = "Levels";
 
+    [SerializeField]
+    private Transform sceneTransition;
+
+    private void Start()
+    {
+        sceneTransition.GetComponent<Animator>().Play("SceneTransition");
+    }
+
     public void ChangeToMenu()
     {
         StopAllCoroutines();
@@ -31,8 +39,8 @@ public class SceneChanger : MonoBehaviour
     private IEnumerator ChangeScene(string sceneName)
     {
         //Optional: Add animation here
-
-        yield return new WaitForSecondsRealtime(.4f);
+        sceneTransition.GetComponent<Animator>().Play("SceneTransitionReverse");
+        yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadScene(sceneName);
     }
 }

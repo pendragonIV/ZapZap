@@ -447,6 +447,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &905678003 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7235857808991358150, guid: 18326888a338a9246a7b0b2ebf7412c5, type: 3}
+  m_PrefabInstance: {fileID: 2071655317}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1246935364
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,3 +744,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelHolderPrefab: {fileID: 7638007114084558531, guid: 97f05f0b0faa2c945b931a77c5dd6794, type: 3}
   levelsContainer: {fileID: 819299192}
+  sceneTransition: {fileID: 905678003}

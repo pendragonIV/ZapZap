@@ -46,7 +46,7 @@ MonoBehaviour:
     leftPosX: -4
     rightPosX: 3.5
     isCompleted: 0
-    isPlayable: 1
+    isPlayable: 0
     achivement: 0
   - map: {fileID: 332838673214688052, guid: b447679aeedfd204a99ffebcb0a81ccc, type: 3}
     mapPreviewImg: {fileID: 21300000, guid: fbb4cad8139d9a44eb4d1681bbb5f96c, type: 3}
